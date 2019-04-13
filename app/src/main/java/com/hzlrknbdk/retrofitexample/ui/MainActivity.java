@@ -10,7 +10,9 @@ import com.hzlrknbdk.retrofitexample.model.Comment;
 import com.hzlrknbdk.retrofitexample.model.Post;
 import com.hzlrknbdk.retrofitexample.network.JsonPlaceHolderApi;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getPosts() {
-        Call<List<Post>> call = jsonPlaceHolderApi.getPosts(new Integer[]{1,4,6}, null, null);
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("userId", "2");
+        parameter.put("_sort", "id");
+        parameter.put("_order", "desc");
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts(parameter);
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
